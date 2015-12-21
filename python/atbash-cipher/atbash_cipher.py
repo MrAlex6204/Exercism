@@ -1,13 +1,17 @@
 import string
-ALPHABET = [chr(L) for L in range(ord("a"),ord("z")+1)]
-CIPHER = [chr(L) for L in reversed(range(ord("a"),ord("z")+1))]
 
-def encode(message):
-	normalized_msg  = [L for L in message.lower() if not L in (string.punctuation+" ") ]
-	print (normalized_msg)
-	encode_msg = "".join([CIPHER[ALPHABET.index(str(L))] for L in normalized_msg ])
-	return " ".join([encode_msg[i::5] for i in range(5)])								
-	# return encode_msg
+def encode(message,spaced=True,lenght=5):
+	plain = list(string.lowercase)
+	cipher = list(reversed(list(string.lowercase)))
+	normalized_msg  = [lettler for lettler in message.lower() if lettler.isalnum()]		
+	encode_msg = "".join([cipher[plain.index(lettler)] if not lettler.isdigit() else lettler for lettler in normalized_msg ])
+	return (" " if spaced else "").join([encode_msg[i:(i+lenght)] for i in range(0,len(encode_msg),lenght) ])
+									
+def decode(message):return encode(message,False)
+
+
 	
-if __name__=="__main__":
-	print (encode("Truth is fiction."))
+		
+	
+	
+		
